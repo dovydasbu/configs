@@ -1,0 +1,26 @@
+# COLORS OF BASH PROMPT
+white="\[\033[00m\]"
+green="\[\033[01;32m\]"
+dark_grey="\[\e[1;30m\]"
+blue="\[\033[01;34m\]"
+yellow="\[\033[33m\]"
+red="\e[38;5;124m"
+git_color="\e[38;5;245m"
+
+# Git branch parse
+check_conflicts() {
+	if [[ $( git ls-files 2> /dev/null) && $(git ls-files --unmerged) ]]; then
+		echo '|MERGING'
+	fi
+}
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(check_conflicts)]/"
+}
+
+if [ "$color_prompt" = yes ]; then
+    PS1="\n${green}${debian_chroot:+($debian_chroot)}${green}\u@\h${blue}:\w${yellow}\$(parse_git_branch)${white}\n$ "
+else
+    PS1="${debian_chroot:+($debian_chroot)}${green}\u@\h ${white}[${dark_grey}\d${white}] ${blue}\W${git_color}\$(parse_git_branch) \n${red}» ${white}"
+fi
+unset color_prompt force_color_prompt
