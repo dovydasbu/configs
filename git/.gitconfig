@@ -5,8 +5,37 @@
 	cm = commit -m
 	a = add
 	p = push
+	d = diff
+	dtl = difftool
+	dtool = difftool
 	df = diff
+	dftl = difftool
+	dftool = difftool
 	b = branch
 	m = merge
+	mtl = mergetool
+	mtool = mergetool
+	unstage = reset --
+	unstagea = reset HEAD
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lga = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+[merge]
+    tool = p4merge
+[mergetool]
+    prompt = false
+    keepBackup = false;
+[mergetool "p4merge"]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+[diff]
+    tool = p4merge
+[difftool]
+    prompt = false
+    keepBackup = false
+[difftool "p4merge"]
+    cmd = p4merge "$LOCAL" "$REMOTE"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
