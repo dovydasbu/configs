@@ -4,23 +4,31 @@ green="\[\033[01;32m\]"
 dark_grey="\[\e[1;30m\]"
 blue="\[\033[01;34m\]"
 yellow="\[\033[33m\]"
-red="\e[38;5;124m"
-git_color="\e[38;5;245m"
+red="\[\e[38;5;124m\]"
+git_color="\[\e[38;5;245m\]"
+EMM="\[\033[1;35m\]"
+
+# git bash_prompt config
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUPSTREAM="verbose"
+GIT_PS1_SHOWCOLORHINTS=1
+source ~/public_config/bash/git_bash_prompt.sh
 
 # Git branch parse
-check_conflicts() {
-	if [[ $( git ls-files 2> /dev/null) && $(git ls-files --unmerged) ]]; then
-		echo '|MERGING'
-	fi
-}
+#check_conflicts() {
+#	if [[ $( git ls-files 2> /dev/null) && $(git ls-files --unmerged) ]]; then
+#		echo '|MERGING'
+#	fi
+#}
 
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(check_conflicts)]/"
-}
+#parse_git_branch() {
+#	git branch 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(check_conflicts)]/"
+#}
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\n${green}${debian_chroot:+($debian_chroot)}${green}\u@\h${blue}:\w${yellow}\$(parse_git_branch)${white}\n$ "
+    PS1="\n${green}${debian_chroot:+($debian_chroot)}${green}\u ${blue}\w${EMM}\$(__git_ps1 \" [%s]\")${white}\n$ "
+    #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 else
-    PS1="${debian_chroot:+($debian_chroot)}${green}\u@\h ${white}[${dark_grey}\d${white}] ${blue}\W${git_color}\$(parse_git_branch) \n${red}» ${white}"
+    PS1="${debian_chroot:+($debian_chroot)}${green}\u@\h ${white}[${dark_grey}\d${white}] ${blue}\W${red}\$(parse_git_branch) \n${red}» ${white}"
 fi
 unset color_prompt force_color_prompt
