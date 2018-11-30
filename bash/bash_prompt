@@ -10,7 +10,7 @@ EMM="\[\033[1;35m\]"
 
 # git bash_prompt config
 GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUPSTREAM="verbose"
+GIT_PS1_SHOWUPSTREAM="auto"
 GIT_PS1_SHOWCOLORHINTS=1
 source ~/public_config/bash/git_bash_prompt.sh
 
