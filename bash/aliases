@@ -1,6 +1,7 @@
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias g='git'
 alias pa="php artisan"
 alias vmup="cd ~/Homestead && vagrant up && vagrant ssh"
 alias vm="cd ~/Homestead && vagrant ssh"
